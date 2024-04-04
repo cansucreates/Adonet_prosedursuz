@@ -18,6 +18,15 @@ namespace Adonet_prosedursuz
             InitializeComponent();
         }
 
+        // listeleme metodu oluşturuldu:
+        public void Listeleme()
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Firmalar", connection); // veri çekme için kullanılan class. Veriyi düzensiz çeker.
+            DataTable table = new DataTable(); // veriyi tutmak için kullanılan class. Veriyi düzenli tutar.
+            adapter.Fill(table); // veriyi tabloya doldurur.
+            dataGridView1.DataSource = table; // veriyi datagridview'e aktarır.
+        }
+
         // SQL Server bağlantı cümlesi ADO.NET > SQLConnection
 
         SqlConnection connection = new SqlConnection("Server = DESKTOP-KGM7OOI; Database = Holding; integrated security = true; "); // bağlantı için gerekli olan connection string
@@ -38,7 +47,13 @@ namespace Adonet_prosedursuz
 
             cmd.ExecuteNonQuery(); // Sorguyu çalıştır // ExecuteNonQuery() : Insert, Update, Delete işlemlerinde kullanılır. Veritabanına kayıt eder.
             connection.Close(); // Bağlantıyı kapat
+            Listeleme(); // Listeleme metodu çağrıldı.
 
+        }
+
+        private void button3_Click(object sender, EventArgs e) // Listeleme
+        {
+            Listeleme(); // Listeleme metodu çağrıldı.
         }
     }
 }
