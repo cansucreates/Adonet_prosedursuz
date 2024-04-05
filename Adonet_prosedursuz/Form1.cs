@@ -27,6 +27,14 @@ namespace Adonet_prosedursuz
             dataGridView1.DataSource = table; // veriyi datagridview'e aktarır.
         }
 
+        public void Temizle()
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            dateTimePicker1.Value = DateTime.Now;
+        }
+
         // SQL Server bağlantı cümlesi ADO.NET > SQLConnection
 
         SqlConnection connection = new SqlConnection("Server = DESKTOP-KGM7OOI; Database = Holding; integrated security = true; "); // bağlantı için gerekli olan connection string
@@ -48,12 +56,56 @@ namespace Adonet_prosedursuz
             cmd.ExecuteNonQuery(); // Sorguyu çalıştır // ExecuteNonQuery() : Insert, Update, Delete işlemlerinde kullanılır. Veritabanına kayıt eder.
             connection.Close(); // Bağlantıyı kapat
             Listeleme(); // Listeleme metodu çağrıldı.
+            Temizle(); // Temizle metodu çağrıldı.
 
         }
 
         private void button3_Click(object sender, EventArgs e) // Listeleme
         {
             Listeleme(); // Listeleme metodu çağrıldı.
+        }
+
+        private void button2_Click(object sender, EventArgs e) // Güncelleme
+        {
+            connection.Open(); // Bağlantıyı aç
+
+            SqlCommand cmd = new SqlCommand("UPDATE Firmalar SET FirmaAdi = @FirmaAdi, Tanim = @Tanim, ElemanSayisi = @ElemanSayisi, KurulusTarihi = @Tarih WHERE id = @id", connection);
+
+            // Parametreler
+            cmd.Parameters.AddWithValue("@id", textBox1.Tag);
+            cmd.Parameters.AddWithValue("@FirmaAdi", textBox1.Text);
+            cmd.Parameters.AddWithValue("@Tanim", textBox2.Text);
+            cmd.Parameters.AddWithValue("@ElemanSayisi", Convert.ToInt32(textBox3.Text));
+            cmd.Parameters.AddWithValue("@Tarih", Convert.ToDateTime(dateTimePicker1.Text));
+
+            cmd.ExecuteNonQuery(); // Sorguyu çalıştır
+            connection.Close(); // Bağlantıyı kapat
+            Listeleme(); // Listeleme metodu çağrıldı.
+            Temizle(); // Temizle metodu çağrıldı.
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // cell click eventi
+        {
+            //DataGridView'dan tıklanan satır bilgisini textboxlara aktarma
+            DataGridViewRow satir = dataGridView1.CurrentRow; // seçili satırı alır ve satir değişkenine atar.
+            textBox1.Tag = satir.Cells["id"].Value.ToString(); // seçili satırın 0. hücresindeki değeri textbox1'in tag özelliğine atar. (güncelleme işlemi için id gerekli)
+            textBox1.Text = satir.Cells["FirmaAdi"].Value.ToString(); // seçili satırın 1. hücresindeki değeri textbox1'e atar.
+            textBox2.Text = satir.Cells["Tanim"].Value.ToString(); // seçili satırın 2. hücresindeki değeri textbox2'e atar.
+            textBox3.Text = satir.Cells["ElemanSayisi"].Value.ToString(); // seçili satırın 3. hücresindeki değeri textbox3'e atar.
+            dateTimePicker1.Text = satir.Cells["KurulusTarihi"].Value.ToString(); // seçili satırın 4. hücresindeki değeri datetimepicker1'e atar.
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            connection.Open(); // Bağlantıyı aç
+
+            SqlCommand cmd = new SqlCommand("DELETE FROM Firmalar WHERE id = @id", connection); // SQL sorgusu için SqlCommand nesnesi oluşturulur
+            cmd.Parameters.AddWithValue("@id", textBox1.Tag); // Parametre ekleme  
+            
+            cmd.ExecuteNonQuery(); // Sorguyu çalıştır
+            connection.Close(); // Bağlantıyı kapat
+            Listeleme(); // Listeleme metodu çağrıldı.
+            Temizle(); // Temizle metodu çağrıldı.
         }
     }
 }
