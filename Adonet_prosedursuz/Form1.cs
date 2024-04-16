@@ -107,5 +107,32 @@ namespace Adonet_prosedursuz
             Listeleme(); // Listeleme metodu çağrıldı.
             Temizle(); // Temizle metodu çağrıldı.
         }
+
+        private void button5_Click(object sender, EventArgs e) // Arama butonu
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Firmalar WHERE FirmaAdi LIKE '%"+textBox4.Text+"%' ", connection);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            dataGridView1.DataSource = table;
+        }
+
+        // arama metodu oluşturuldu
+        public void Arama (string sorgu) // sorgu parametresi alır
+        {
+            SqlDataAdapter adapter = new SqlDataAdapter(sorgu, connection);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            dataGridView1.DataSource = table;
+        }
+
+        private void button6_Click(object sender, EventArgs e) // Tanıma Göre Arama butonu
+        {
+            Arama("SELECT * FROM Firmalar WHERE Tanim like '%" + textBox4.Text + "%' ");
+        }
+
+        private void button7_Click(object sender, EventArgs e) // Eleman Sayısına Göre Arama butonu
+        {
+            Arama("SELECT * FROM Firmalar WHERE ElemanSayisi>" +textBox4.Text + "");
+        }
     }
 }

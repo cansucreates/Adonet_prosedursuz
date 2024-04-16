@@ -16,7 +16,7 @@ namespace Adonet_prosedursuz
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new YonetimBilgi());
+            Application.Run(new Form1());
         }
     }
 }
