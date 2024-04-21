@@ -36,7 +36,7 @@ namespace Adonet_prosedurlu
             Listeleme();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // kaydet
         {
             connection.Open(); // bağlantıyı açıyoruz
 
@@ -60,7 +60,7 @@ namespace Adonet_prosedurlu
             Listeleme(); // listeleme fonksiyonunu çağırıyoruz
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // güncelleme butonu
         {
             connection.Open(); // bağlantıyı açıyoruz
 
