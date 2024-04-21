@@ -98,5 +98,17 @@ namespace Adonet_prosedurlu
             connection.Close();
             Listeleme();
         }
+
+        private void button5_Click(object sender, EventArgs e) // satiş formunu aç
+        {
+            Satislar satislar = new Satislar();
+            satislar.Show();
+            // this.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e) // müşteri formunu açar
+        {
+            this.Close();
+        }
     }
 }

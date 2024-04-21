@@ -109,5 +109,19 @@ namespace Adonet_prosedurlu
             textBox4.Text = satir.Cells["il"].Value.ToString(); // il'i textboxa atıyoruz
             textBox5.Text = satir.Cells["Telefon"].Value.ToString(); // telefonu textboxa atıyoruz
         }
+
+        private void button5_Click(object sender, EventArgs e) // ürünler formunu aç
+        {
+            Urunler urunler = new Urunler();
+            urunler.Show();
+            // this.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e) // satışlar formunu aç
+        {
+            Satislar satislar = new Satislar();
+            satislar.Show();
+            // this.Close();
+        }
     }
 }
