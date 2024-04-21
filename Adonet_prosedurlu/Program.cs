@@ -16,7 +16,7 @@ namespace Adonet_prosedurlu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Satislar());
+            Application.Run(new Urunler());
         }
     }
 }
